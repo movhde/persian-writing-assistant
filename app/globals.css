@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: "Vazirmatn Variable", Tahoma, Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+}
