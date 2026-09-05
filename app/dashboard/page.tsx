@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
 import { ListChecks, CalendarClock, Trophy, Sparkles } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { OPERATION_LABELS } from "@/lib/ai/prompts";
@@ -6,6 +7,8 @@ import type { AIOperation } from "@/lib/ai/types";
 import { StatTile } from "@/app/components/dashboard/StatTile";
 import { OperationBreakdown } from "@/app/components/dashboard/OperationBreakdown";
 import { DailyActivityChart } from "@/app/components/dashboard/DailyActivityChart";
+
+export const metadata: Metadata = { title: "داشبورد — دستیار هوشمند نوشتار فارسی" };
 
 const DAYS_WINDOW = 14;
 

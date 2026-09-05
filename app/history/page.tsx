@@ -1,10 +1,13 @@
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { OPERATION_LABELS } from "@/lib/ai/prompts";
 import type { AIOperation } from "@/lib/ai/types";
 import { toPersianDigits } from "@/lib/persian/numerals";
 import { HistoryDeleteButton } from "@/app/components/history/HistoryDeleteButton";
+
+export const metadata: Metadata = { title: "تاریخچه — دستیار هوشمند نوشتار فارسی" };
 
 const dateFormatter = new Intl.DateTimeFormat("fa-IR", {
   dateStyle: "medium",

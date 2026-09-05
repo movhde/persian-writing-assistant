@@ -2,6 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 const PROTECTED_PATHS = ["/history", "/dashboard"];
+const AUTH_PATHS = ["/auth/login", "/auth/signup"];
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -35,8 +36,11 @@ export async function updateSession(request: NextRequest) {
   );
 
   if (isProtected && !user) {
-    const loginUrl = new URL("/auth/login", request.url);
-    return NextResponse.redirect(loginUrl);
+    return NextResponse.redirect(new URL("/auth/login", request.url));
+  }
+
+  if (AUTH_PATHS.includes(request.nextUrl.pathname) && user) {
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   return response;

@@ -3,10 +3,12 @@
 import { useState, useTransition } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { runTextOperation } from "@/app/actions/text-operations";
+import { MAX_INPUT_LENGTH } from "@/lib/ai/constants";
 import { OPERATION_LABELS } from "@/lib/ai/prompts";
 import type { AIOperation } from "@/lib/ai/types";
 import type { TextChange } from "@/lib/ai/parse-response";
 import type { ReadabilityScore } from "@/lib/persian/readability";
+import { toPersianDigits } from "@/lib/persian/numerals";
 import { DiffView } from "./DiffView";
 import { ScoreCompare } from "./ScoreCompare";
 import { ChangesPanel } from "./ChangesPanel";
@@ -78,10 +80,14 @@ export function WritingEditor() {
           lang="fa"
           rows={8}
           value={text}
+          maxLength={MAX_INPUT_LENGTH}
           onChange={(e) => setText(e.target.value)}
           placeholder="متن فارسی خود را اینجا بنویسید یا paste کنید..."
           className="w-full resize-y rounded-2xl border border-zinc-200 bg-white p-4 text-lg leading-8 shadow-sm transition-colors focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-100"
         />
+        <span dir="rtl" className="self-start text-xs text-zinc-400">
+          {toPersianDigits(text.length)} / {toPersianDigits(MAX_INPUT_LENGTH)}
+        </span>
       </div>
 
       <button

@@ -4,6 +4,7 @@ import { generateText, type AIOperation } from "@/lib/ai";
 import { createClient } from "@/lib/supabase/server";
 import type { TextChange } from "@/lib/ai/parse-response";
 import type { ReadabilityScore } from "@/lib/persian/readability";
+import { MAX_INPUT_LENGTH } from "@/lib/ai/constants";
 
 export type RunOperationResult =
   | {
@@ -23,6 +24,9 @@ export async function runTextOperation(
   const trimmed = text.trim();
   if (!trimmed) {
     return { ok: false, error: "متنی برای پردازش وارد نشده است." };
+  }
+  if (trimmed.length > MAX_INPUT_LENGTH) {
+    return { ok: false, error: `متن نباید بیشتر از ${MAX_INPUT_LENGTH} کاراکتر باشد.` };
   }
 
   try {
