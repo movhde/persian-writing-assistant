@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { Logo } from "@/app/components/ui/Logo";
 import { SignOutButton } from "./SignOutButton";
+import { MobileNav } from "./MobileNav";
 
 export async function Header() {
   const supabase = await createClient();
@@ -9,18 +11,16 @@ export async function Header() {
   } = await supabase.auth.getUser();
 
   return (
-    <header dir="rtl" className="sticky top-0 z-10 border-b border-zinc-200 bg-white/80 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-indigo-500 text-sm font-bold text-white">
-            ن
-          </span>
-          <span className="text-sm font-semibold text-zinc-900 sm:text-base">
+    <header dir="rtl" className="sticky top-0 z-10 border-b border-zinc-200 bg-white">
+      <div className="relative mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
+        <Link href="/" className="flex min-w-0 items-center gap-2">
+          <Logo size={32} className="shrink-0" />
+          <span className="truncate text-sm font-semibold text-zinc-900 sm:text-base">
             دستیار هوشمند نوشتار فارسی
           </span>
         </Link>
 
-        <nav className="flex items-center gap-1 text-sm sm:gap-2">
+        <nav className="hidden items-center gap-1 text-sm sm:flex sm:gap-2">
           <Link
             href="/"
             className="rounded-full px-3 py-1.5 font-medium text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900"
@@ -48,7 +48,7 @@ export async function Header() {
 
           {user ? (
             <div className="flex items-center gap-2">
-              <span dir="ltr" className="hidden text-xs text-zinc-400 sm:inline">
+              <span dir="ltr" className="hidden text-xs text-zinc-400 lg:inline">
                 {user.email}
               </span>
               <SignOutButton />
@@ -70,6 +70,8 @@ export async function Header() {
             </div>
           )}
         </nav>
+
+        <MobileNav userEmail={user?.email ?? null} />
       </div>
     </header>
   );

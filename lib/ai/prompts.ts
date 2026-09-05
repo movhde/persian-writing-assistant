@@ -15,7 +15,19 @@ const OPERATION_INSTRUCTIONS: Record<AIOperation, string> = {
 
 export function buildPrompt(operation: AIOperation, text: string): string {
   return `${OPERATION_INSTRUCTIONS[operation]}
-فقط متن نهایی را برگردان، بدون هیچ توضیح، مقدمه یا علامت‌گذاری اضافه.
+
+خروجی را دقیقاً به‌صورت یک JSON معتبر با این ساختار برگردان، بدون Markdown، بدون
+بک‌تیک، بدون هیچ متن دیگری قبل یا بعد از آن:
+
+{
+  "text": "متن نهایی بازنویسی‌شده",
+  "changes": [
+    { "before": "بخش اصلی از متن ورودی", "after": "بخش جایگزین‌شده", "reason": "دلیل کوتاه این تغییر به فارسی" }
+  ]
+}
+
+"changes" باید فقط تغییرهای معنادار (نه هر کلمه) را با دلیلی کوتاه و آموزشی
+فهرست کند؛ اگر تغییری معنادار وجود ندارد، آرایه‌ای خالی برگردان.
 
 متن:
 """

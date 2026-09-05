@@ -1,14 +1,22 @@
+import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
 import { AuthForm } from "@/app/components/auth/AuthForm";
+import { AuthCard } from "@/app/components/auth/AuthCard";
 
-export default function LoginPage() {
+export const metadata: Metadata = { title: "ورود — دستیار هوشمند نوشتار فارسی" };
+
+export default async function LoginPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) redirect("/");
+
   return (
-    <div className="flex flex-1 items-center justify-center px-4 py-16">
-      <div className="w-full max-w-sm rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm">
-        <h1 dir="rtl" className="mb-6 text-center text-xl font-semibold text-zinc-900">
-          ورود به حساب کاربری
-        </h1>
-        <AuthForm mode="login" />
-      </div>
-    </div>
+    <AuthCard title="ورود به حساب کاربری">
+      <AuthForm mode="login" />
+    </AuthCard>
   );
 }
