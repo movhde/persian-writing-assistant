@@ -36,8 +36,7 @@ export async function signUp(formData: FormData): Promise<AuthResult> {
   }
 
   revalidatePath("/", "layout");
-  // If email confirmation is disabled in Supabase, signUp already returns a
-  // session (user is logged in); otherwise a confirmation email is pending.
+  // No session yet means email confirmation is still required.
   return { ok: true, needsEmailConfirmation: !data.session };
 }
 
