@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 
-const DEMO_BEFORE = "من دیروز رفتم مدرسه و خیلی درس خوندم ولی هنوز نفهمیدم چی شد";
+const DEMO_BEFORE = "من دیروز رفتم مدرسه و خیلی درس خوندم ولی هنوز نمی دونم چرا نمره ام خوب نشد";
 
 export function Hero() {
   return (
@@ -13,11 +13,7 @@ export function Hero() {
       />
 
       <div className="relative mx-auto flex max-w-5xl flex-col items-center px-4 pt-16 pb-12 text-center sm:px-6">
-        <span className="rounded-full bg-violet-50 px-3 py-1 text-xs font-medium text-violet-700 ring-1 ring-violet-100">
-          پروژه پایانی — نوشتار فارسی با هوش مصنوعی
-        </span>
-
-        <h1 className="mt-5 max-w-2xl text-3xl font-bold leading-tight text-zinc-900 sm:text-4xl">
+        <h1 className="max-w-2xl text-3xl font-bold leading-tight text-zinc-900 sm:text-4xl">
           نوشتار فارسی‌تان را
           <span className="text-violet-600"> هوشمندانه‌تر </span>
           کنید
@@ -58,18 +54,19 @@ export function Hero() {
             {DEMO_BEFORE}
           </p>
           <p dir="rtl" lang="fa" className="mt-2 text-base leading-8">
-            من دیروز <ins className="rounded bg-emerald-100 px-0.5 text-emerald-800 no-underline">به مدرسه رفتم</ins> و{" "}
-            <ins className="rounded bg-emerald-100 px-0.5 text-emerald-800 no-underline">بسیار</ins> درس خواندم، اما هنوز
-            نفهمیدم <ins className="rounded bg-emerald-100 px-0.5 text-emerald-800 no-underline">چرا</ins>.
+            دیروز <ins className="rounded bg-emerald-100 px-0.5 text-emerald-800 no-underline">به مدرسه رفتم</ins> و{" "}
+            <ins className="rounded bg-emerald-100 px-0.5 text-emerald-800 no-underline">بسیار</ins> درس خواندم، اما هنوز{" "}
+            <ins className="rounded bg-emerald-100 px-0.5 text-emerald-800 no-underline">نمی‌دانم</ins> چرا{" "}
+            <ins className="rounded bg-emerald-100 px-0.5 text-emerald-800 no-underline">نمره‌ام</ins> خوب نشد.
           </p>
           <div className="mt-4 flex items-center gap-4 border-t border-zinc-100 pt-3 text-xs text-zinc-400">
             <span>
-              خوانایی <span className="font-medium text-violet-600">۷۸</span>
+              خوانایی <span className="font-medium text-violet-600">۷۴</span>
             </span>
             <span>
-              رسمیت <span className="font-medium text-violet-600">۹۲</span>
+              رسمیت <span className="font-medium text-violet-600">۸۸</span>
             </span>
-            <span className="mr-auto">اصلاح نیم‌فاصله شامل شد</span>
+            <span className="mr-auto">۲ اصلاح نیم‌فاصله (نمی‌دانم، نمره‌ام)</span>
           </div>
         </motion.div>
       </div>
