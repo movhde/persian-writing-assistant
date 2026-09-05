@@ -1,6 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+const PROTECTED_PATHS = ["/history", "/dashboard"];
+
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
@@ -24,7 +26,18 @@ export async function updateSession(request: NextRequest) {
   );
 
   // Refreshes the session cookie if needed; required for Server Components to read a valid session.
-  await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const isProtected = PROTECTED_PATHS.some(
+    (path) => request.nextUrl.pathname === path || request.nextUrl.pathname.startsWith(`${path}/`),
+  );
+
+  if (isProtected && !user) {
+    const loginUrl = new URL("/auth/login", request.url);
+    return NextResponse.redirect(loginUrl);
+  }
 
   return response;
 }
