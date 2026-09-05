@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { Logo } from "@/app/components/ui/Logo";
 import { SignOutButton } from "./SignOutButton";
 import { MobileNav } from "./MobileNav";
 
@@ -13,9 +14,7 @@ export async function Header() {
     <header dir="rtl" className="sticky top-0 z-10 border-b border-zinc-200 bg-white">
       <div className="relative mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
         <Link href="/" className="flex min-w-0 items-center gap-2">
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-indigo-500 text-sm font-bold text-white">
-            ن
-          </span>
+          <Logo size={32} className="shrink-0" />
           <span className="truncate text-sm font-semibold text-zinc-900 sm:text-base">
             دستیار هوشمند نوشتار فارسی
           </span>
