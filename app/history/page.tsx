@@ -26,7 +26,7 @@ export default async function HistoryPage() {
     .limit(50);
 
   return (
-    <div dir="rtl" className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6">
+    <div dir="rtl" className="mx-auto w-full max-w-4xl px-4 pt-10 pb-20 sm:px-6">
       <h1 className="text-xl font-bold text-zinc-900">تاریخچه</h1>
       <p className="mt-1 text-sm text-zinc-500">آخرین متن‌هایی که پردازش کرده‌اید.</p>
 

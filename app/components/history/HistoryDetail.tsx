@@ -78,7 +78,7 @@ export function HistoryDetail({ item }: { item: HistoryItem }) {
   }
 
   return (
-    <div dir="rtl" className="mx-auto w-full max-w-4xl px-4 py-10 sm:px-6">
+    <div dir="rtl" className="mx-auto w-full max-w-4xl px-4 pt-10 pb-20 sm:px-6">
       <Link href="/history" className="text-sm text-zinc-400 hover:text-zinc-700">
         ← بازگشت به تاریخچه
       </Link>
