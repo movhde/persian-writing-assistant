@@ -1,8 +1,10 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { OPERATION_LABELS } from "@/lib/ai/prompts";
 import type { AIOperation } from "@/lib/ai/types";
-import { deleteHistoryItem } from "./actions";
+import { toPersianDigits } from "@/lib/persian/numerals";
+import { HistoryDeleteButton } from "@/app/components/history/HistoryDeleteButton";
 
 const dateFormatter = new Intl.DateTimeFormat("fa-IR", {
   dateStyle: "medium",
@@ -35,28 +37,25 @@ export default async function HistoryPage() {
       ) : (
         <ul className="mt-6 flex flex-col gap-3">
           {items.map((item) => (
-            <li key={item.id} className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm">
-              <div className="flex items-center justify-between">
+            <li key={item.id} className="rounded-2xl border border-zinc-200 bg-white shadow-sm">
+              <div className="flex items-center justify-between px-4 pt-4">
                 <span className="rounded-full bg-violet-50 px-3 py-1 text-xs font-medium text-violet-700">
                   {OPERATION_LABELS[item.operation as AIOperation] ?? item.operation}
                 </span>
                 <div className="flex items-center gap-3">
-                  <span className="text-xs text-zinc-400">{dateFormatter.format(new Date(item.created_at))}</span>
-                  <form action={deleteHistoryItem.bind(null, item.id)}>
-                    <button
-                      type="submit"
-                      className="text-xs text-zinc-400 transition-colors hover:text-rose-600"
-                    >
-                      حذف
-                    </button>
-                  </form>
+                  <span className="text-xs text-zinc-400">
+                    {toPersianDigits(dateFormatter.format(new Date(item.created_at)))}
+                  </span>
+                  <HistoryDeleteButton id={item.id} />
                 </div>
               </div>
 
-              <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                <p className="line-clamp-3 text-sm leading-7 text-zinc-600">{item.input_text}</p>
-                <p className="line-clamp-3 text-sm leading-7 text-zinc-900">{item.output_text}</p>
-              </div>
+              <Link href={`/history/${item.id}`} className="block px-4 pb-4 pt-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <p className="line-clamp-3 text-sm leading-7 text-zinc-600">{item.input_text}</p>
+                  <p className="line-clamp-3 text-sm leading-7 text-zinc-900">{item.output_text}</p>
+                </div>
+              </Link>
             </li>
           ))}
         </ul>
