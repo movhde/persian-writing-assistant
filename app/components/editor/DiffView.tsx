@@ -1,9 +1,9 @@
-import { diffArrays } from "diff";
+"use client";
 
-// diffWords()'s tokenizer relies on \b/\w, which only recognizes ASCII word
-// characters — Persian letters fall outside \w, so it fragments mid-word.
-// Splitting on whitespace ourselves (keeping the separators) and diffing the
-// resulting token arrays keeps whole Persian words intact.
+import { diffArrays } from "diff";
+import { motion } from "motion/react";
+
+// diffWords() uses \b/\w, which doesn't recognize Persian letters and fragments mid-word.
 function tokenize(text: string): string[] {
   return text.split(/(\s+)/).filter((token) => token.length > 0);
 }
@@ -15,21 +15,43 @@ export function DiffView({ original, revised }: { original: string; revised: str
     <p dir="rtl" lang="fa" className="whitespace-pre-wrap text-lg leading-9">
       {parts.map((part, i) => {
         const text = part.value.join("");
+        const delay = Math.min(i * 0.02, 1);
         if (part.added) {
           return (
-            <ins key={i} className="rounded bg-emerald-100 px-0.5 text-emerald-800 no-underline">
+            <motion.ins
+              key={i}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay, duration: 0.25 }}
+              className="rounded bg-emerald-100 px-0.5 text-emerald-800 no-underline"
+            >
               {text}
-            </ins>
+            </motion.ins>
           );
         }
         if (part.removed) {
           return (
-            <del key={i} className="rounded bg-rose-100 px-0.5 text-rose-700">
+            <motion.del
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay, duration: 0.25 }}
+              className="rounded bg-rose-100 px-0.5 text-rose-700"
+            >
               {text}
-            </del>
+            </motion.del>
           );
         }
-        return <span key={i}>{text}</span>;
+        return (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: delay * 0.4, duration: 0.15 }}
+          >
+            {text}
+          </motion.span>
+        );
       })}
     </p>
   );
