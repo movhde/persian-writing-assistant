@@ -15,7 +15,11 @@ import { ConfirmButton } from "@/app/components/ui/ConfirmButton";
 import { deleteHistoryItem } from "@/app/history/actions";
 import { updateHistoryOutput, rerunHistoryItem } from "@/app/history/[id]/actions";
 
-const dateFormatter = new Intl.DateTimeFormat("fa-IR", { dateStyle: "medium", timeStyle: "short" });
+const dateFormatter = new Intl.DateTimeFormat("fa-IR", {
+  dateStyle: "medium",
+  timeStyle: "short",
+  timeZone: "Asia/Tehran",
+});
 
 interface HistoryItem {
   id: string;

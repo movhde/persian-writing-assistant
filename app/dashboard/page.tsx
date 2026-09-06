@@ -51,7 +51,7 @@ export default async function DashboardPage() {
     d.setDate(d.getDate() - i);
     days.push({
       key: dayKey(d),
-      label: new Intl.DateTimeFormat("fa-IR", { day: "numeric", month: "short" }).format(d),
+      label: new Intl.DateTimeFormat("fa-IR", { day: "numeric", month: "short", timeZone: "Asia/Tehran" }).format(d),
       count: 0,
     });
   }

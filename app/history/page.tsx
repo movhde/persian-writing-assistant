@@ -12,6 +12,7 @@ export const metadata: Metadata = { title: "تاریخچه — دستیار هو
 const dateFormatter = new Intl.DateTimeFormat("fa-IR", {
   dateStyle: "medium",
   timeStyle: "short",
+  timeZone: "Asia/Tehran",
 });
 
 export default async function HistoryPage() {
